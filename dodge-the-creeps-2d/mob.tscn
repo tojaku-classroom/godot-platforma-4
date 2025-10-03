@@ -1,0 +1,95 @@
+[gd_scene load_steps=17 format=3 uid="uid://cws5n0h08xph8"]
+
+[ext_resource type="Texture2D" uid="uid://dmdv1b73ybk5l" path="res://sprites/sprite_enemy_10.png" id="1_jbnni"]
+[ext_resource type="Script" uid="uid://bhbxxd2cc6xkw" path="res://mob.gd" id="1_yscv0"]
+[ext_resource type="Texture2D" uid="uid://crmdc3dl4dgg5" path="res://sprites/sprite_enemy_11.png" id="2_yscv0"]
+[ext_resource type="Texture2D" uid="uid://c4rcvsa6dfg6n" path="res://sprites/sprite_enemy_12.png" id="3_eqsov"]
+[ext_resource type="Texture2D" uid="uid://c48gjipotvbvu" path="res://sprites/sprite_enemy_13.png" id="4_wvrms"]
+[ext_resource type="Texture2D" uid="uid://d1n6ngoaiggv" path="res://sprites/sprite_enemy_20.png" id="5_h0ign"]
+[ext_resource type="Texture2D" uid="uid://cdiub06qiq0pk" path="res://sprites/sprite_enemy_21.png" id="6_6ak38"]
+[ext_resource type="Texture2D" uid="uid://dn1jv30k6i16q" path="res://sprites/sprite_enemy_22.png" id="7_rxhkm"]
+[ext_resource type="Texture2D" uid="uid://dr8ck1toir3gw" path="res://sprites/sprite_enemy_23.png" id="8_mhy1y"]
+[ext_resource type="Texture2D" uid="uid://6xq56t5ppfys" path="res://sprites/sprite_enemy_30.png" id="9_gy8bd"]
+[ext_resource type="Texture2D" uid="uid://cquro0ek83b7g" path="res://sprites/sprite_enemy_31.png" id="10_srff1"]
+[ext_resource type="Texture2D" uid="uid://cecm1w6gv318w" path="res://sprites/sprite_enemy_32.png" id="11_hpl8x"]
+[ext_resource type="Texture2D" uid="uid://ckmi2ttehybq2" path="res://sprites/sprite_enemy_33.png" id="12_10kxg"]
+[ext_resource type="Texture2D" uid="uid://e7j56c1sryfg" path="res://sprites/sprite_enemy_34.png" id="13_5en0g"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n647c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_jbnni")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_yscv0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_eqsov")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wvrms")
+}],
+"loop": true,
+"name": &"amoeba",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_h0ign")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_6ak38")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_rxhkm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_mhy1y")
+}],
+"loop": true,
+"name": &"bacteria",
+"speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_gy8bd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_srff1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_hpl8x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_10kxg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_5en0g")
+}],
+"loop": true,
+"name": &"virus",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7dsds"]
+radius = 33.0
+
+[node name="Mob" type="RigidBody2D"]
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_yscv0")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_n647c")
+animation = &"bacteria"
+frame_progress = 0.67510355
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7dsds")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
