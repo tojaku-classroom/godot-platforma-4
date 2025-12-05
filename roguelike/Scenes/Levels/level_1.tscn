@@ -1,14 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://blj4mhqv4nfl8"]
 
+[ext_resource type="Script" uid="uid://nhcx1x18ritt" path="res://Scripts/room_generation.gd" id="1_4dpyx"]
 [ext_resource type="PackedScene" uid="uid://dp6xoa7mhhu5k" path="res://Scenes/player.tscn" id="1_tlcug"]
-[ext_resource type="PackedScene" uid="uid://ctnvk210kj2rc" path="res://Scenes/Rooms/room_template.tscn" id="2_4dpyx"]
 
 [node name="Main" type="Node2D"]
+
+[node name="RoomGeneration" type="Node2D" parent="."]
+script = ExtResource("1_4dpyx")
 
 [node name="Player" parent="." instance=ExtResource("1_tlcug")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(1, 16)
 zoom = Vector2(4, 4)
-
-[node name="Room_Template" parent="." instance=ExtResource("2_4dpyx")]
