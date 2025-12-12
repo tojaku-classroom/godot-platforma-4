@@ -58,7 +58,15 @@ func _check_room(x: int, y: int, desired_direction: Vector2, is_first_room: bool
 		_check_room(x-1, y, Vector2.LEFT if is_first_room else desired_direction)
 	
 func _instantiate_rooms():
-	pass
+	for x in range(map_size):
+		for y in range(map_size):
+			if _get_map(x, y) == false:
+				continue
+			
+			var room: Room = room_scene.instantiate()
+			get_tree().root.add_child.call_deferred(room)
+			rooms.append(room)
+			room.global_position = Vector2(x, y) * room_pos_offset
 	
 func _get_map(x: int, y: int) -> bool:
 	return map[x + y * map_size]
