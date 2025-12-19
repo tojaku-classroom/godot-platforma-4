@@ -64,12 +64,51 @@ func _instantiate_rooms():
 				continue
 			
 			var room: Room = room_scene.instantiate()
+			var is_first_room: bool = first_room_x == x and first_room_y == y
+			
 			get_tree().root.add_child.call_deferred(room)
 			rooms.append(room)
+			
 			room.global_position = Vector2(x, y) * room_pos_offset
+			
+			if is_first_room:
+				first_room = room
+			
+			room.initialize()
+			
+	for room in rooms:
+		var map_pos: Vector2 = _get_map_index(room)
+		var x = map_pos.x
+		var y = map_pos.y
+		
+		if y > 0 and _get_map(x, y - 1):
+			room.set_neighbor.call_deferred(Room.Direction.NORTH, get_room_from_map(x, y - 1))
+			
+		if y < map_size - 1 and _get_map(x, y + 1):
+			room.set_neighbor.call_deferred(Room.Direction.SOUTH, get_room_from_map(x, y + 1))
+		
+		if x < map_size - 1 and _get_map(x + 1, y):
+			room.set_neighbor.call_deferred(Room.Direction.EAST, get_room_from_map(x + 1, y))
+		
+		if x > 0 and _get_map(x - 1, y):
+			room.set_neighbor.call_deferred(Room.Direction.WEST, get_room_from_map(x - 1, y))
+			
+	first_room.player_enter.call_deferred(Room.Direction.NORTH, player, true)
 	
 func _get_map(x: int, y: int) -> bool:
 	return map[x + y * map_size]
 	
 func _set_map(x: int, y: int, value: bool):
 	map[x + y * map_size] = value
+
+func _get_map_index(room: Room) -> Vector2i:
+	return Vector2i(room.global_position / room_pos_offset)
+	
+func get_room_from_map(x: int, y: int) -> Room:
+	for room in rooms:
+		var pos = _get_map_index(room)
+		if pos.x != x and pos.y != y:
+			continue
+		
+		return room
+	return null
