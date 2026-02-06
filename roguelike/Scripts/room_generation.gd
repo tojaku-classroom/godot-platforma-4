@@ -1,6 +1,9 @@
 class_name RoomGeneration
 extends Node2D
 
+@export var first_room_scene: PackedScene
+@export var room_scenes: Array[PackedScene]
+
 @export var player: CharacterBody2D
 
 @export var map_size: int = 7
@@ -63,12 +66,17 @@ func _instantiate_rooms():
 			if _get_map(x, y) == false:
 				continue
 			
-			var room: Room = room_scene.instantiate()
+			var room: Room
 			var is_first_room: bool = first_room_x == x and first_room_y == y
 			
-			get_tree().root.add_child.call_deferred(room)
-			rooms.append(room)
+			if is_first_room:
+				room = first_room_scene.instantiate()
+			else:
+				room = room_scenes[randi_range(0, len(room_scenes) - 1)].instantiate()
 			
+			## GREŠKA OVDJE!
+			get_tree().root.get_node("/root/Main").add_child.call_deferred(room)
+			rooms.append(room)
 			room.global_position = Vector2(x, y) * room_pos_offset
 			
 			if is_first_room:
