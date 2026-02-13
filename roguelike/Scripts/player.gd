@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+@export var cur_hp: int = 8
+@export var max_hp: int = 8
+
 @export var move_speed: float = 50
 @export var shoot_rate: float = 0.4
 
@@ -34,5 +37,15 @@ func _shoot():
 	proj.owner_character = self
 
 func take_damage(amount: int):
-	print("Player Took Damage")
+	cur_hp -= amount
 	
+	if cur_hp <= 0:
+		die()
+
+func die():
+	print ("Player Died")
+
+func heal(amount: int):
+	cur_hp += amount
+	if (cur_hp > max_hp):
+		cur_hp = max_hp
