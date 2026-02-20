@@ -328,6 +328,7 @@ position = Vector2(0, -44)
 shape = SubResource("RectangleShape2D_iixi8")
 
 [node name="ExitTrigger" type="Area2D" parent="Entrance_North"]
+collision_mask = 2
 position = Vector2(0, -56)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entrance_North/ExitTrigger"]
@@ -372,6 +373,7 @@ position = Vector2(0, -44)
 shape = SubResource("RectangleShape2D_iixi8")
 
 [node name="ExitTrigger" type="Area2D" parent="Entrance_West"]
+collision_mask = 2
 position = Vector2(0, -56)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entrance_West/ExitTrigger"]
@@ -416,6 +418,7 @@ position = Vector2(0, -44)
 shape = SubResource("RectangleShape2D_iixi8")
 
 [node name="ExitTrigger" type="Area2D" parent="Entrance_South"]
+collision_mask = 2
 position = Vector2(0, -56)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entrance_South/ExitTrigger"]
@@ -460,6 +463,7 @@ position = Vector2(0, -44)
 shape = SubResource("RectangleShape2D_iixi8")
 
 [node name="ExitTrigger" type="Area2D" parent="Entrance_East"]
+collision_mask = 2
 position = Vector2(0, -56)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entrance_East/ExitTrigger"]

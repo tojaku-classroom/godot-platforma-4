@@ -16,6 +16,8 @@ var neighbor: Room
 func _ready() -> void:
 	exit_trigger.body_entered.connect(_on_body_entered_exit_trigger)
 	toggle_barrier(true)
+	door_shut.visible = true
+	door_shut_collider.disabled = false
 	
 func set_neighbor(neighbor_room: Room):
 	neighbor = neighbor_room
@@ -27,13 +29,13 @@ func toggle_barrier(toggle: bool):
 	door.visible = !toggle
 
 func open_door():
-	if barrier.visible:
+	if barrier.visible or not door.visible:
 		return
 	door_shut.visible = false
 	door_shut_collider.disabled = true
 	
 func close_door():
-	if barrier.visible:
+	if barrier.visible or not door.visible:
 		return
 	door_shut.visible = true
 	door_shut_collider.disabled = false
