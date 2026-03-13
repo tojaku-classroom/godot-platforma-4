@@ -1,6 +1,7 @@
 class_name RoomGeneration
 extends Node2D
 
+@export var boss_room: PackedScene
 @export var first_room_scene: PackedScene
 @export var room_scenes: Array[PackedScene]
 
@@ -61,9 +62,11 @@ func _check_room(x: int, y: int, desired_direction: Vector2, is_first_room: bool
 		_check_room(x-1, y, Vector2.LEFT if is_first_room else desired_direction)
 	
 func _instantiate_rooms():
+	var boss_room_pos: Vector2 = _decide_boss_room()
+	
 	for x in range(map_size):
 		for y in range(map_size):
-			if _get_map(x, y) == false:
+			if not _get_map(x, y):
 				continue
 			
 			var room: Room
@@ -71,10 +74,11 @@ func _instantiate_rooms():
 			
 			if is_first_room:
 				room = first_room_scene.instantiate()
+			elif x == boss_room_pos.x and y == boss_room_pos.y:
+				room = boss_room.instantiate()
 			else:
 				room = room_scenes[randi_range(0, len(room_scenes) - 1)].instantiate()
 			
-			## GREŠKA OVDJE!
 			get_tree().root.get_node("/root/Main").add_child.call_deferred(room)
 			rooms.append(room)
 			room.global_position = Vector2(x, y) * room_pos_offset
@@ -119,3 +123,20 @@ func get_room_from_map(x: int, y: int) -> Room:
 			continue
 		return room
 	return null
+
+func _decide_boss_room() -> Vector2:
+	var i = 0
+	
+	while i < 100:
+		var x = randi_range(0, map_size - 1)
+		var y = randi_range(0, map_size - 1)
+		
+		if first_room_x == x and first_room_y == y:
+			continue
+			
+		if _get_map(x, y):
+			return Vector2(x, y)
+		
+		i += 1
+		
+	return Vector2.ZERO

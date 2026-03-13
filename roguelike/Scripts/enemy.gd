@@ -54,9 +54,17 @@ func _try_attack():
 	
 func take_damage(amount: int):
 	cur_hp -= amount
+	_damage_flash()
+	$DamageSound.play()
+	
 	if cur_hp <= 0:
 		die()
 	
 func die():
 	GlobalSignals.OnDefeatEnemy.emit(self)
 	queue_free()
+	
+func _damage_flash():
+	visible = false
+	await get_tree().create_timer(0.07).timeout
+	visible = true

@@ -3,7 +3,7 @@ extends Area2D
 enum ItemType
 {
 	HEALTH,
-	SHOOT_RANGE,
+	SHOOT_RATE,
 	MOVE_SPEED
 }
 
@@ -16,9 +16,11 @@ func _on_body_entered(body: Node2D) -> void:
 		
 	if type == ItemType.HEALTH:
 		body.heal(int(value))
-	elif type == ItemType.SHOOT_RANGE:
-		body.shoot_range -= value
+	elif type == ItemType.SHOOT_RATE:
+		body.shoot_rate -= value
 	elif type == ItemType.MOVE_SPEED:
 		body.move_speed += value
+		
+	body.get_node("ItemSound").play()
 		
 	queue_free()
