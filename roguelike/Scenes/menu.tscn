@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://phxlltvi3a0c"]
+
+[ext_resource type="Script" uid="uid://7fw44qhwcm1c" path="res://Scripts/menu.gd" id="1_1rerr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xhh6f"]
+font_size = 80
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_1rerr")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 1.0
+offset_right = 1111.0
+offset_bottom = 172.0
+grow_horizontal = 2
+text = "GODOT ROGUELIKE"
+label_settings = SubResource("LabelSettings_xhh6f")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 445.0
+offset_top = 228.0
+offset_right = 696.0
+offset_bottom = 343.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Play"
+
+[node name="QuitButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 446.0
+offset_top = 355.0
+offset_right = 697.0
+offset_bottom = 470.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Quit"
+
+[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]

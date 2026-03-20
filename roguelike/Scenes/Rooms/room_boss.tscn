@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://gp8cewqk8q27"]
+[gd_scene load_steps=8 format=3 uid="uid://gp8cewqk8q27"]
 
 [ext_resource type="PackedScene" uid="uid://ctnvk210kj2rc" path="res://Scenes/Rooms/room_template.tscn" id="1_e7ge8"]
 [ext_resource type="PackedScene" uid="uid://dfix0rs1o6ep8" path="res://Scenes/Enemies/enemy.tscn" id="2_rbiyq"]
 [ext_resource type="PackedScene" uid="uid://by03e2s10x352" path="res://Scenes/Enemies/enemy_boss.tscn" id="3_6q2y6"]
+[ext_resource type="Script" uid="uid://vnlw86lstrqk" path="res://Scripts/next_level_portal.gd" id="4_5pmj5"]
+[ext_resource type="Texture2D" uid="uid://divmryxvl32mh" path="res://Sprites/Tiles.png" id="5_cffxh"]
+[ext_resource type="PackedScene" uid="uid://phxlltvi3a0c" path="res://Scenes/menu.tscn" id="5_svm75"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_svm75"]
+radius = 9.055386
 
 [node name="Room_Template" instance=ExtResource("1_e7ge8")]
 
@@ -14,3 +20,23 @@ position = Vector2(54, 62)
 
 [node name="EnemyBoss" parent="." index="11" instance=ExtResource("3_6q2y6")]
 position = Vector2(19, -3)
+
+[node name="NextLevelPortal" type="Area2D" parent="." index="12" node_paths=PackedStringArray("boss")]
+position = Vector2(-31, 39)
+collision_mask = 3
+script = ExtResource("4_5pmj5")
+boss = NodePath("../EnemyBoss")
+next_level = ExtResource("5_svm75")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="NextLevelPortal" index="0"]
+scale = Vector2(3, 3)
+texture = ExtResource("5_cffxh")
+region_enabled = true
+region_rect = Rect2(61, 1, 8, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NextLevelPortal" index="1"]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_svm75")
+
+[connection signal="body_entered" from="NextLevelPortal" to="NextLevelPortal" method="_on_body_entered"]

@@ -50,7 +50,7 @@ func take_damage(amount: int):
 		die()
 
 func die():
-	print ("Player Died")
+	get_tree().change_scene_to_file("res://Scenes/menu.tscn")
 
 func heal(amount: int):
 	cur_hp += amount
